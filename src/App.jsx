@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css'
-import { Button, TextInput } from '@yourname/design-system'
 
 // --- Figma asset URLs (valid for 7 days) ---
 const imgPessoa = "https://www.figma.com/api/mcp/asset/a97c608b-ccac-4a1e-bdc5-d56eac8197f2";

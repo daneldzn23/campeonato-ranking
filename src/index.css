@@ -1,0 +1,46 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --windown-bg-body: #333;
+  --windown-bg-body-deep: #111;
+  --windown-bg-header: #333;
+  --windown-bg-header-select: #292929;
+  --typography-base: #fff;
+  --typography-suave-1: #c2c2c2;
+  --typography-suave-2: #aaa;
+  --typography-positivo: #52ea94;
+  --typography-negativo: #ea5252;
+  --input-bg-input-windown: #464646;
+  --input-border-input-windown: #555;
+  --button-border-radius: 4px;
+  --table-default-bg-line-odd: #1a1a1a;
+  --table-default-bg-line-even: #202020;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,640 @@
+/* src/components/Button/Button.module.css */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  font-style: normal;
+  line-height: normal;
+  text-decoration: none;
+  transition: filter 150ms ease, transform 100ms ease;
+}
+.btn:active:not(.btn--disabled) {
+  transform: scale(0.97);
+}
+.btn:focus-visible {
+  outline: 2px solid #1F72FF;
+  outline-offset: 3px;
+}
+.btn--sm {
+  height: 22px;
+  padding: 0 8px;
+  min-width: 80px;
+}
+.btn--md {
+  height: 26px;
+  padding: 0 8px;
+  min-width: 80px;
+}
+.btn--lg {
+  height: 26px;
+  padding: 0 16px;
+  min-width: 80px;
+}
+.btn--icon {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  min-width: unset;
+  gap: 0;
+}
+.btn--full {
+  width: 100%;
+}
+.btn--primary {
+  background:
+    linear-gradient(
+      180deg,
+      #1DA9FB 0%,
+      #0F62FE 100%);
+  border-color: #1F72FF;
+  color: #FFFFFF;
+}
+.btn--primary:hover:not(.btn--disabled) {
+  filter: brightness(1.1);
+}
+.btn--secondary {
+  background:
+    linear-gradient(
+      180deg,
+      #4F4F4F 0%,
+      #464646 100%);
+  border-color: #3F3F3F;
+  color: #FFFFFF;
+}
+.btn--secondary:hover:not(.btn--disabled) {
+  filter: brightness(1.2);
+}
+.btn--tertiary {
+  background:
+    linear-gradient(
+      180deg,
+      #C2C2C2 0%,
+      #8F8F8F 100%);
+  border-color: #AAAAAA;
+  color: #000000;
+}
+.btn--tertiary:hover:not(.btn--disabled) {
+  filter: brightness(1.08);
+}
+.btn--buy {
+  background:
+    linear-gradient(
+      180deg,
+      #F3B71F 0%,
+      #D8910A 100%);
+  border-color: #FFB010;
+  color: #000000;
+}
+.btn--buy:hover:not(.btn--disabled) {
+  filter: brightness(1.08);
+}
+.btn--sell {
+  background:
+    linear-gradient(
+      180deg,
+      #3AAE70 0%,
+      #0E8947 100%);
+  border-color: #14A658;
+  color: #FFFFFF;
+}
+.btn--sell:hover:not(.btn--disabled) {
+  filter: brightness(1.08);
+}
+.btn--warning {
+  background:
+    linear-gradient(
+      39.54deg,
+      #B52B2B 22.61%,
+      #DB4040 77.39%);
+  border-color: #DC3838;
+  color: #FFFFFF;
+}
+.btn--warning:hover:not(.btn--disabled) {
+  filter: brightness(1.1);
+}
+.btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: #DDDDDD;
+}
+.btn--ghost:hover:not(.btn--disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.btn--send {
+  background: #2266A0;
+  border-color: #2266A0;
+  color: #FFFFFF;
+}
+.btn--send:hover:not(.btn--disabled) {
+  filter: brightness(1.12);
+}
+.btn--disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.btn--loading {
+  cursor: wait;
+}
+.spinner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 0 0;
+  min-width: 1px;
+}
+.labelHidden {
+  visibility: hidden;
+  display: inline-flex;
+  flex: 1 0 0;
+  justify-content: center;
+}
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.iconLeft svg,
+.iconRight svg {
+  width: 100%;
+  height: 100%;
+}
+.iconOnly {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+.iconOnly svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* src/components/Input/Checkbox.module.css */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+.wrapper:has(.input:disabled) {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.control {
+  position: relative;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.box {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 1px;
+  border-radius: 2px;
+  border: 1px solid #707070;
+  background-color: #494949;
+  transition: background 150ms ease, border-color 150ms ease;
+  position: relative;
+}
+.input:checked + .box {
+  background:
+    linear-gradient(
+      180deg,
+      #1DA9FB 0%,
+      #0F62FE 100%);
+  border-color: #1F72FF;
+}
+.input:checked + .box::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  width: 5px;
+  height: 8px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+.input:focus-visible + .box {
+  outline: 2px solid #1F72FF;
+  outline-offset: 2px;
+}
+.label {
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  color: #FFFFFF;
+  line-height: normal;
+}
+
+/* src/components/Input/Radio.module.css */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+.wrapper:has(.input:disabled) {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.control {
+  position: relative;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.circle {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 1.5px solid #707070;
+  background: #494949;
+  transition: background 150ms ease, border-color 150ms ease;
+  position: relative;
+}
+.input:checked + .circle {
+  background:
+    linear-gradient(
+      180deg,
+      #1DA9FB 0%,
+      #0F62FE 100%);
+  border-color: #1F72FF;
+}
+.input:checked + .circle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+}
+.input:focus-visible + .circle {
+  outline: 2px solid #1F72FF;
+  outline-offset: 2px;
+}
+.label {
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  color: #FFFFFF;
+  line-height: normal;
+}
+
+/* src/components/Input/Switch.module.css */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+.wrapper:has(.input:disabled) {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+.track {
+  position: relative;
+  flex-shrink: 0;
+  width: 30px;
+  height: 16px;
+  border-radius: 50px;
+  border: 1px solid #707070;
+  background: #494949;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+}
+.track:has(.input:checked) {
+  background:
+    linear-gradient(
+      213deg,
+      #1DA9FB 0%,
+      #0F62FE 64%);
+  border-color: #1F72FF;
+}
+.thumb {
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50px;
+  background: #fff;
+  transition: left 150ms ease;
+}
+.track:has(.input:checked) .thumb {
+  left: 17px;
+}
+.track:has(.input:focus-visible) {
+  outline: 2px solid #1F72FF;
+  outline-offset: 2px;
+}
+.label {
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  color: #FFFFFF;
+  line-height: normal;
+}
+
+/* src/components/Input/TextInput.module.css */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  min-width: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color 150ms ease;
+  border-radius: 4px;
+}
+.wrapper--input {
+  background: #464646;
+  border: 1px solid #555555;
+  padding: 0 4px;
+}
+.wrapper--input.wrapper--focus {
+  border-color: #1DA9FB;
+}
+.wrapper--input.wrapper--error {
+  border-color: #FF423E;
+}
+.wrapper--text {
+  background: transparent;
+  border: 1px solid transparent;
+  padding-left: 2px;
+}
+.wrapper--text.wrapper--focus {
+  border-color: #1DA9FB;
+}
+.iconLeft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background: #222222;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.iconLeft svg {
+  width: 100%;
+  height: 100%;
+}
+.field {
+  flex: 1 0 0;
+  min-width: 1px;
+  min-height: 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0;
+}
+.field::placeholder {
+  color: #999999;
+}
+.wrapper--text .field {
+  color: #E6E6E6;
+}
+.wrapper--error .field {
+  color: #FF423E;
+}
+.wrapper--error .field::placeholder {
+  color: #FF423E;
+}
+.suffix {
+  font-family: "Tahoma", sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #999999;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.buttonRight {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.buttonRight svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* src/components/Badge/Badge.module.css */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 16px;
+  max-height: 16px;
+  border-radius: 4px;
+  gap: 2px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.badge--sell {
+  background: #1e4339;
+  border: 1px solid #168250;
+  padding: 0 4px;
+}
+.badge--buy {
+  background: #503d22;
+  border: 1px solid #b48a12;
+  padding: 0 4px;
+}
+.badge--locate {
+  background: #5a5a5a;
+  border: 1px solid #797979;
+  padding: 0 2px 0 4px;
+}
+.badge--empty {
+  width: 7px;
+}
+.quantity {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1;
+  color: #ffffff;
+}
+.label {
+  display: inline-flex;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1;
+  color: #ffffff;
+}
+.badge--sell .label,
+.badge--buy .label {
+  font-weight: 600;
+  letter-spacing: 0.44px;
+}
+.badge--empty .label {
+  font-weight: 700;
+  width: 7px;
+  text-align: center;
+}
+.badge--locate .label svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* src/components/Badge/BadgeLado.module.css */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  min-height: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.badge--sm {
+  width: 16px;
+  height: 16px;
+}
+.badge--lg {
+  height: 16px;
+  gap: 4px;
+  padding: 0 5px;
+}
+.badge--profit {
+  border-radius: 4px;
+  border: 1px solid transparent;
+}
+.badge--profit.badge--buy {
+  background: #503d22;
+  border-color: #b48a12;
+}
+.badge--profit.badge--sell {
+  background: #1e4339;
+  border-color: #168250;
+}
+.badge--profit.badge--both {
+  background: #236d7c;
+  border-color: #0bc6e6;
+}
+.badge--algotools {
+  border-radius: 2px;
+}
+.badge--algotools.badge--buy {
+  background:
+    linear-gradient(
+      180deg,
+      #eec053 0%,
+      #c7992b 100%);
+}
+.badge--algotools.badge--sell {
+  background:
+    linear-gradient(
+      180deg,
+      #3dce90 0%,
+      #2cb67b 100%);
+}
+.badge--algotools.badge--both {
+  background:
+    linear-gradient(
+      180deg,
+      #2a7986 0%,
+      #1b454b 100%);
+}
+.label {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  font-style: normal;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  color: #ffffff;
+}
+.badge--algotools.badge--buy .label,
+.badge--algotools.badge--sell .label {
+  color: #020202;
+}
+.dollarSign {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+}
+/*# sourceMappingURL=index.css.map */

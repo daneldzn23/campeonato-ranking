@@ -1,0 +1,27 @@
+/* scrollable container — overlay scrollbar using absolute positioning */
+[data-scrollable] {
+  overflow-x: hidden !important;
+  overflow-y: scroll;
+  position: relative;
+}
+
+/* Hide native scrollbar but keep scroll functionality */
+[data-scrollable] {
+  scrollbar-width: none; /* Firefox */
+}
+
+[data-scrollable]::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Custom scrollbar track positioned absolutely */
+[data-scrollable]::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 8px;
+  height: 100%;
+  background: transparent;
+  pointer-events: none;
+}

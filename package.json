@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@yourname/design-system": "github:daneldzn23/design-system",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },

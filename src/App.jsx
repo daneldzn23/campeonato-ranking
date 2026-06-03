@@ -1,26 +1,20 @@
 import React from 'react'
 import './App.css'
-
-// --- Figma asset URLs (valid for 7 days) ---
-const imgPessoa = "https://www.figma.com/api/mcp/asset/a97c608b-ccac-4a1e-bdc5-d56eac8197f2";
-const imgVector1st = "https://www.figma.com/api/mcp/asset/1b402217-8302-4699-b521-e5e15fde8a88";
-const imgLaurel1 = "https://www.figma.com/api/mcp/asset/5c9b6ba8-9b61-4cd0-8c3e-47ac3a887d26";
-const imgLaurel2 = "https://www.figma.com/api/mcp/asset/2fe33141-5d56-4382-93d6-0693da3fe76e";
-const img2num = "https://www.figma.com/api/mcp/asset/de252b1e-3f58-47a1-8c63-b60a9a92eba3";
-const imgLaurel3 = "https://www.figma.com/api/mcp/asset/9f3a8074-8afe-4dba-b0a1-7244699de4af";
-const img3num = "https://www.figma.com/api/mcp/asset/eb013816-9ec8-4484-8419-ec10d6c4b57e";
-const imgSearchIcon = "https://www.figma.com/api/mcp/asset/e0c15bd1-42b7-46bd-9d3c-5ec2fc06439e";
-const imgUnionDown1 = "https://www.figma.com/api/mcp/asset/2bf632e5-9dc7-4f0f-88b5-31294663b50d";
-const imgUnionDown2 = "https://www.figma.com/api/mcp/asset/945039d8-db22-4090-a3ca-40ce6027b681";
-const imgChampionIconCenter = "https://www.figma.com/api/mcp/asset/81b515b5-fc43-4aef-8713-e9e7b4e5df9c";
-const imgDivider = "https://www.figma.com/api/mcp/asset/db1d7d28-320b-4dfd-b468-06e83880216f";
-const imgAcctGroup1 = "https://www.figma.com/api/mcp/asset/2d91ef75-d0a3-4160-b8ec-c5209a591592";
-const imgAcctGroup2 = "https://www.figma.com/api/mcp/asset/fc54c908-abdc-4ace-a54e-6c04a304b04b";
-const imgAcctVector1 = "https://www.figma.com/api/mcp/asset/e4540f54-3970-41ff-b66e-31ace901c8b3";
-const imgAcctVector2 = "https://www.figma.com/api/mcp/asset/fc664efc-cd55-4b3f-b88a-7cb9d3963e41";
-const imgAcctVector3 = "https://www.figma.com/api/mcp/asset/5523414f-742c-4a85-ab64-a6567a11a70a";
-const imgAcctChevron = "https://www.figma.com/api/mcp/asset/87a2af73-515d-4d1f-b825-a181333b45b3";
-const imgAcctChevron2 = "https://www.figma.com/api/mcp/asset/5840532c-04db-4d94-9169-e8864dc14c1e";
+import {
+  IcCampeonato,
+  IcChevronPixelCima,
+  IcRanking,
+  IcRanking2,
+  IcRanking3,
+  IcChevronLineBaixo,
+  IcLupa,
+  IcFecharPequeno,
+  IcMinimizarMini,
+  IcMaximizarMini,
+  IcMenuContexto,
+  IcUsuario,
+  IcTrofeuUltraCup,
+} from '@dantunes23/design-system'
 
 // --- Mock ranking data ---
 const PARTICIPANTS = [
@@ -58,89 +52,13 @@ const PARTICIPANTS = [
   { rank: 32, name: "Carolina Martins", pnl: "R$ 39.543,75",  isUser: false },
 ];
 
-// --- Icon components for header ---
-
-function IcFecharPequeno() {
-  return (
-    <div style={{ position: 'relative', width: 16, height: 16 }}>
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 8, height: 8 }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgPrincipal} />
-      </div>
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 8, height: 8 }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgTransparente} />
-      </div>
-    </div>
-  );
-}
-
-function IcMaximizarMini() {
-  return (
-    <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', width: 8, height: 8 }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgVector} />
-      </div>
-    </div>
-  );
-}
-
-function IcMinimizarMini() {
-  return (
-    <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', left: '50%', top: 'calc(50% + 0.38px)', transform: 'translate(-50%, -50%)', width: 8, height: 1 }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgIcMinimizarStroke} />
-      </div>
-    </div>
-  );
-}
-
-function IcMenuContexto() {
-  return (
-    <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', left: 1, top: 1, width: 14, height: 14 }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgUnion} />
-      </div>
-    </div>
-  );
-}
-
-function IcChevronPixelCima() {
-  return (
-    <div style={{ position: 'relative', width: 16, height: 16 }}>
-      <div style={{ position: 'absolute', left: '50%', top: 'calc(50% - 0.5px)', transform: 'translate(-50%, -50%)', width: 6, height: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ transform: 'scaleY(-1)', width: '100%', height: '100%' }}>
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgUnion1} />
-          </div>
-        </div>
-      </div>
-      <div style={{ position: 'absolute', left: '50%', top: 'calc(50% - 1px)', transform: 'translate(-50%, -50%)', width: 8, height: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ transform: 'scaleY(-1)', width: '100%', height: '100%' }}>
-          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgUnion2} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // --- Sub-components ---
 
 function ChampionshipIcon({ size = 16 }) {
   return (
-    <div style={{ position: 'relative', width: size, height: size, flexShrink: 0 }}>
-      <div style={{ position: 'absolute', inset: '8.12% 62.5% 32.5% 0.97%' }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgChampIcon1} />
-      </div>
-      <div style={{ position: 'absolute', inset: '7.5% 1.05% 32.5% 62.5%' }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgChampIcon2} />
-      </div>
-      <div style={{ position: 'absolute', inset: '0 18.75%' }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgChampIcon3} />
-      </div>
-      <div style={{ position: 'absolute', bottom: 0, left: '25%', right: '25%', top: '92.5%' }}>
-        <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgChampIcon4} />
-      </div>
+    <div style={{ width: size, height: size, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+      <IcCampeonato style={{ width: size, height: size }} />
     </div>
   );
 }
@@ -148,53 +66,24 @@ function ChampionshipIcon({ size = 16 }) {
 function RankBadge({ rank }) {
   if (rank === 1) {
     return (
-      <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden', flexShrink: 0 }}>
-        {/* gold laurel */}
-        <div style={{ position: 'absolute', inset: '6.25% 0 2.8% 0', display: 'flex', alignItems: 'center', justifyContent: 'center', containerType: 'size' }}>
-          <div style={{ transform: 'rotate(180deg) scaleX(-1)', width: '100%', height: '100%' }}>
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgLaurel1} />
-            </div>
-          </div>
-        </div>
-        {/* "1" numeral */}
-        <div style={{ position: 'absolute', height: 6.442, left: 6.2, top: 4.56, width: 2.725 }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgVector1st} />
-        </div>
+      <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <IcRanking style={{ width: 16, height: 16 }} />
       </div>
     );
   }
 
   if (rank === 2) {
     return (
-      <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden', flexShrink: 0 }}>
-        <div style={{ position: 'absolute', inset: '6.25% 0 2.8% 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ transform: 'rotate(180deg) scaleX(-1)', width: '100%', height: '100%' }}>
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgLaurel2} />
-            </div>
-          </div>
-        </div>
-        <div style={{ position: 'absolute', bottom: '29.54%', left: 'calc(50% + 0.1px)', top: '30.41%', width: 4.201, transform: 'translateX(-50%)' }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={img2num} />
-        </div>
+      <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <IcRanking2 style={{ width: 16, height: 16 }} />
       </div>
     );
   }
 
   if (rank === 3) {
     return (
-      <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden', flexShrink: 0 }}>
-        <div style={{ position: 'absolute', inset: '6.25% 0 2.8% 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ transform: 'rotate(180deg) scaleX(-1)', width: '100%', height: '100%' }}>
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgLaurel3} />
-            </div>
-          </div>
-        </div>
-        <div style={{ position: 'absolute', bottom: '28.86%', left: 'calc(50% + 0.21px)', top: '30.41%', width: 4.017, transform: 'translateX(-50%)' }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={img3num} />
-        </div>
+      <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <IcRanking3 style={{ width: 16, height: 16 }} />
       </div>
     );
   }
@@ -240,8 +129,10 @@ function RankingRow({ participant }) {
       alignItems: 'center',
       width: '100%',
       flexShrink: 0,
-      background: rowBackground(rank),
+      background: isUser && !isTop3 ? '#3a3a3a' : rowBackground(rank),
       minHeight: 32,
+      borderLeft: isUser && !isTop3 ? '3px solid rgba(15, 98, 254, 0.8)' : 'none',
+      paddingLeft: isUser && !isTop3 ? '5px' : '8px',
     }}>
       {/* Rank cell */}
       <div style={{
@@ -273,10 +164,8 @@ function RankingRow({ participant }) {
                 {name}
               </span>
               {isUser && (
-                <div style={{ position: 'relative', width: 16, height: 16, flexShrink: 0 }}>
-                  <div style={{ position: 'absolute', inset: '12.5%' }}>
-                    <img alt="você" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgPessoa} />
-                  </div>
+                <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <IcUsuario style={{ width: 16, height: 16 }} />
                 </div>
               )}
             </div>
@@ -343,22 +232,8 @@ function Subheader({ searchTerm, onSearchChange }) {
         overflow: 'hidden',
       }}>
         {/* Trophy Icon */}
-        <div style={{ position: 'relative', width: 16, height: 16, flexShrink: 0, overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', inset: '8.12% 62.5% 32.5% 0.97%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctGroup1} />
-          </div>
-          <div style={{ position: 'absolute', inset: '7.5% 1.05% 32.5% 62.5%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctGroup2} />
-          </div>
-          <div style={{ position: 'absolute', inset: '0 18.75%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctVector1} />
-          </div>
-          <div style={{ position: 'absolute', bottom: 0, left: '25%', right: '25%', top: '92.5%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctVector2} />
-          </div>
-          <div style={{ position: 'absolute', inset: '12.5% 31.88% 42.5% 31.87%' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctVector3} />
-          </div>
+        <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <IcTrofeuUltraCup style={{ width: 16, height: 16 }} />
         </div>
 
         {/* Text Content */}
@@ -378,17 +253,12 @@ function Subheader({ searchTerm, onSearchChange }) {
           <span style={{ fontWeight: 700, flexShrink: 0 }}>Sim</span>
           <span style={{ fontWeight: 400, flexShrink: 0 }}>987654321</span>
           <span style={{ fontWeight: 400, flexShrink: 0 }}>-</span>
-          <span style={{ fontWeight: 400, flex: '1 0 0', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>Valesca Amaro Cechin</span>
+          <span style={{ fontWeight: 400, flex: '1 0 0', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }}>Gustavo Ribeiro</span>
         </div>
 
         {/* Chevron Icon */}
-        <div style={{ position: 'relative', width: 16, height: 16, flexShrink: 0 }}>
-          <div style={{ position: 'absolute', left: '50%', top: 'calc(50% - 0.5px)', transform: 'translate(-50%, -50%)', width: 6, height: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctChevron} />
-          </div>
-          <div style={{ position: 'absolute', left: '50%', top: 'calc(50% + 1px)', transform: 'translate(-50%, -50%)', width: 8, height: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgAcctChevron2} />
-          </div>
+        <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+          <IcChevronLineBaixo style={{ width: 16, height: 16 }} />
         </div>
       </button>
 
@@ -413,7 +283,7 @@ function Subheader({ searchTerm, onSearchChange }) {
           onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'}
           onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
-          <img alt="pesquisar" style={{ width: 16, height: 16, display: 'block' }} src={imgSearchIcon} />
+          <IcLupa style={{ width: 16, height: 16 }} />
         </button>
       ) : (
         <div style={{
@@ -428,7 +298,7 @@ function Subheader({ searchTerm, onSearchChange }) {
           padding: '0 6px',
           height: 22,
         }}>
-          <img alt="pesquisar" style={{ width: 16, height: 16, flexShrink: 0 }} src={imgSearchIcon} />
+          <IcLupa style={{ width: 16, height: 16, flexShrink: 0 }} />
           <input
             ref={searchInputRef}
             type="text"
@@ -466,31 +336,25 @@ function TableHeader() {
       {/* # column */}
       <div style={{ display: 'flex', height: 16, alignItems: 'center', justifyContent: 'center', padding: '0 8px', flexShrink: 0, position: 'relative', width: 32 }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>#</span>
-        <div style={{ position: 'absolute', right: 0, top: 2.5, width: 1, height: 10 }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgDivider} />
-        </div>
+        <div style={{ position: 'absolute', right: 0, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
       </div>
 
       {/* Participante column */}
       <div style={{ display: 'flex', flex: '1 0 0', height: 16, alignItems: 'center', justifyContent: 'center', padding: '0 8px', minWidth: 0, position: 'relative' }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>Participante</span>
-        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10 }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgDivider} />
-        </div>
+        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
       </div>
 
       {/* PnL column */}
       <div style={{ display: 'flex', flex: '1 0 0', height: 15, alignItems: 'center', justifyContent: 'center', padding: '0 8px', minWidth: 90, position: 'relative' }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>PnL</span>
-        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10 }}>
-          <img alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} src={imgDivider} />
-        </div>
+        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
       </div>
     </div>
   );
 }
 
-function Footer() {
+function Footer({ userRank, totalParticipants }) {
   return (
     <div style={{
       background: 'var(--windown-bg-body)',
@@ -499,50 +363,42 @@ function Footer() {
       justifyContent: 'space-between',
       width: '100%',
       flexShrink: 0,
+      padding: '0 8px',
+      height: 22,
     }}>
-      <div style={{ display: 'flex', height: 22, alignItems: 'center', flexShrink: 0 }}>
-        <div style={{ display: 'flex', height: 19, alignItems: 'center', justifyContent: 'center', borderRadius: 4, flexShrink: 0 }}>
-          <div style={{ display: 'flex', height: 14, alignItems: 'center', justifyContent: 'center', padding: '0 12px', flexShrink: 0 }}>
-            <span style={{
-              fontFamily: 'Tahoma, sans-serif',
-              fontWeight: 400,
-              fontSize: 12,
-              lineHeight: '14px',
-              color: 'var(--typography-suave-1)',
-              whiteSpace: 'nowrap',
-            }}>
-              Total de Participantes: 32
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* Left: User Position */}
+      <span style={{
+        fontFamily: 'Tahoma, sans-serif',
+        fontWeight: 600,
+        fontSize: 11,
+        color: 'var(--typography-suave-1)',
+        whiteSpace: 'nowrap',
+      }}>
+        Sua Posição:{' '}
+        <strong style={{
+          fontWeight: 700,
+          background: 'rgba(15, 98, 254, 0.3)',
+          padding: '2px 6px',
+          borderRadius: '3px',
+          color: '#FFFFFF',
+        }}>
+          {userRank}
+        </strong>
+      </span>
+
+      {/* Right: Total Participants */}
+      <span style={{
+        fontFamily: 'Tahoma, sans-serif',
+        fontWeight: 400,
+        fontSize: 11,
+        color: 'var(--typography-suave-1)',
+        whiteSpace: 'nowrap',
+      }}>
+        Total de Participantes: <strong style={{ fontWeight: 700 }}>{totalParticipants}</strong>
+      </span>
     </div>
   );
 }
-
-const imgMenuContexto = "https://www.figma.com/api/mcp/asset/9f37dc22-07f2-4a94-a60d-027c93b7fe96";
-const imgMinimize = "https://www.figma.com/api/mcp/asset/22a1dce9-b843-40dc-abb2-ebc854266dd1";
-const imgMaximize = "https://www.figma.com/api/mcp/asset/529625cc-0906-42bd-a7bf-ef3f864a50b1";
-const imgClose = "https://www.figma.com/api/mcp/asset/b8ab7120-0c84-48f9-8285-ae02eca2c2d8";
-const imgChampIcon1 = "https://www.figma.com/api/mcp/asset/5952c253-5048-44c1-9fb8-df8b9bffe442";
-const imgChampIcon2 = "https://www.figma.com/api/mcp/asset/bdacec87-16e6-4e32-b7df-9e41628e59c4";
-const imgChampIcon3 = "https://www.figma.com/api/mcp/asset/c1a14de1-3496-421a-8614-e07108dad184";
-const imgChampIcon4 = "https://www.figma.com/api/mcp/asset/69a69aee-7df4-4b3c-86ea-595d055c7476";
-const imgChevUp1 = "https://www.figma.com/api/mcp/asset/2bf076b3-0ec6-499d-a36b-7680d5969797";
-const imgChevUp2 = "https://www.figma.com/api/mcp/asset/16f38df6-661b-4a38-929d-ca4e48e149d7";
-
-// --- Header icon assets ---
-const imgPrincipal = "https://www.figma.com/api/mcp/asset/499927ec-6bce-41ea-b4ef-fb6670a41800";
-const imgTransparente = "https://www.figma.com/api/mcp/asset/735c2636-5b4c-400b-897c-44bceceebf8e";
-const imgVector = "https://www.figma.com/api/mcp/asset/e9a7d4b8-8a3c-429b-a08c-25cf4eba6188";
-const imgIcMinimizarStroke = "https://www.figma.com/api/mcp/asset/b9758e96-b460-4984-9385-f884192d900f";
-const imgUnion = "https://www.figma.com/api/mcp/asset/60c3dedc-0ffc-4b0e-824f-c275c276caaa";
-const imgUnion1 = "https://www.figma.com/api/mcp/asset/ede7c126-d2d8-4341-a7d2-a168de493753";
-const imgUnion2 = "https://www.figma.com/api/mcp/asset/b2510c5b-c0d6-452b-b392-1bd1b9636c1d";
-const imgGroup = "https://www.figma.com/api/mcp/asset/6f7eb756-d20c-437a-9891-473436ef8681";
-const imgGroup1 = "https://www.figma.com/api/mcp/asset/21373297-d93f-4fe1-8809-0b2ee482eb70";
-const imgVector1 = "https://www.figma.com/api/mcp/asset/146e38f6-e9f4-4bfd-9249-f7b5d1ae7b45";
-const imgVector2 = "https://www.figma.com/api/mcp/asset/a652d790-48da-47fd-baed-0ba48e0a48c8";
 
 function Header() {
   return (
@@ -574,7 +430,7 @@ function Header() {
           gap: 0
         }}>
           <ChampionshipIcon />
-          <IcChevronPixelCima />
+          <IcChevronPixelCima style={{ width: 16, height: 16 }} />
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', padding: '0 4px', flexShrink: 0 }}>
@@ -593,10 +449,10 @@ function Header() {
 
       {/* Right: window controls */}
       <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'flex-end', flexShrink: 0, gap: 0 }}>
-        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMenuContexto /></button>
-        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMinimizarMini /></button>
-        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMaximizarMini /></button>
-        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcFecharPequeno /></button>
+        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMenuContexto style={{ width: 16, height: 16 }} /></button>
+        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMinimizarMini style={{ width: 16, height: 16 }} /></button>
+        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 22, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcMaximizarMini style={{ width: 16, height: 16 }} /></button>
+        <button style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', width: 26, height: 20, borderRadius: 4, transition: 'background-color 150ms ease' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.06)'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}><IcFecharPequeno style={{ width: 16, height: 16 }} /></button>
       </div>
     </div>
   );
@@ -670,6 +526,10 @@ export default function App() {
     p.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const userParticipant = PARTICIPANTS.find((p) => p.isUser);
+  const userRank = userParticipant?.rank || '-';
+  const totalParticipants = PARTICIPANTS.length;
+
   return (
     <div style={{
       backdropFilter: 'blur(20px)',
@@ -723,7 +583,7 @@ export default function App() {
         )}
       </div>
 
-      <Footer />
+      <Footer userRank={userRank} totalParticipants={totalParticipants} />
     </div>
   );
 }

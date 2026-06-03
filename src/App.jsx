@@ -381,6 +381,7 @@ function Footer({ userRank, totalParticipants }) {
           padding: '2px 6px',
           borderRadius: '3px',
           color: '#FFFFFF',
+          border: '1px solid rgba(15, 98, 254, 0.8)',
         }}>
           {userRank}
         </strong>

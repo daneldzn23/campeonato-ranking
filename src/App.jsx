@@ -550,6 +550,7 @@ function Header() {
 
 export default function App() {
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [subheaderPosition, setSubheaderPosition] = React.useState('bottom'); // 'bottom' or 'top'
   const scrollContainerRef = React.useRef(null);
   const tableAreaRef = React.useRef(null);
   const [scrollThumbHeight, setScrollThumbHeight] = React.useState(0);
@@ -621,22 +622,48 @@ export default function App() {
   const totalParticipants = PARTICIPANTS.length;
 
   return (
-    <div style={{
-      backdropFilter: 'blur(20px)',
-      background: 'var(--windown-bg-body)',
-      border: '1px solid #474747',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      overflow: 'hidden',
-      borderRadius: 4,
-      width: 447,
-      height: 458,
-      boxShadow: '0 0 40px rgba(0,0,0,0.5)',
-    }}>
-      <Header />
-      <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
-      <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />
+    <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+      {/* Toggle Button */}
+      <button
+        onClick={() => setSubheaderPosition(subheaderPosition === 'bottom' ? 'top' : 'bottom')}
+        style={{
+          width: 24,
+          height: 24,
+          borderRadius: 4,
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          background: 'rgba(255, 255, 255, 0.05)',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'rgba(255, 255, 255, 0.6)',
+          fontSize: 12,
+          fontWeight: 600,
+          transition: 'all 200ms ease',
+          marginTop: 4,
+        }}
+        title="Toggle subheader position"
+      >
+        {subheaderPosition === 'bottom' ? '↓' : '↑'}
+      </button>
+
+      {/* Main Window */}
+      <div style={{
+        backdropFilter: 'blur(20px)',
+        background: 'var(--windown-bg-body)',
+        border: '1px solid #474747',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        overflow: 'hidden',
+        borderRadius: 4,
+        width: 447,
+        height: 458,
+        boxShadow: '0 0 40px rgba(0,0,0,0.5)',
+      }}>
+        <Header />
+        <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+        {subheaderPosition === 'top' && <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />}
 
       {/* Table area */}
       <div
@@ -672,6 +699,8 @@ export default function App() {
               userSelect: 'none',
             }} />
         )}
+      </div>
+      {subheaderPosition === 'bottom' && <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />}
       </div>
     </div>
   );

@@ -171,11 +171,6 @@ function RankingRow({ participant }) {
               }}>
                 {name}
               </span>
-              {isUser && (
-                <div style={{ width: 16, height: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <IcUsuario style={{ width: 16, height: 16 }} />
-                </div>
-              )}
             </div>
           </div>
         </div>

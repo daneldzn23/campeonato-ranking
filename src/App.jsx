@@ -354,49 +354,131 @@ function TableHeader() {
   );
 }
 
-function Footer({ userRank, totalParticipants }) {
+function InfoSubheader({ userRank, totalParticipants }) {
+  const [timeRemaining, setTimeRemaining] = React.useState({
+    days: 3,
+    hours: 13,
+    minutes: 23,
+    seconds: 45,
+  });
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeRemaining((prev) => {
+        let { days, hours, minutes, seconds } = prev;
+
+        seconds -= 1;
+        if (seconds < 0) {
+          seconds = 59;
+          minutes -= 1;
+          if (minutes < 0) {
+            minutes = 59;
+            hours -= 1;
+            if (hours < 0) {
+              hours = 23;
+              days -= 1;
+              if (days < 0) {
+                days = 0;
+                hours = 0;
+                minutes = 0;
+                seconds = 0;
+              }
+            }
+          }
+        }
+
+        return { days, hours, minutes, seconds };
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{
       background: 'var(--windown-bg-body)',
+      backdropFilter: 'blur(10px)',
       display: 'flex',
+      gap: 8,
+      height: 30,
       alignItems: 'center',
-      justifyContent: 'space-between',
+      padding: '0 4px',
       width: '100%',
       flexShrink: 0,
-      padding: '0 8px',
-      height: 22,
+      overflow: 'hidden',
+      justifyContent: 'space-between',
     }}>
-      {/* Left: User Position */}
-      <span style={{
-        fontFamily: 'Tahoma, sans-serif',
-        fontWeight: 600,
-        fontSize: 11,
-        color: 'var(--typography-suave-1)',
-        whiteSpace: 'nowrap',
+      {/* Left: Position Pill */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 4,
+        background: '#202020',
+        padding: '4px 8px',
+        borderRadius: 4,
+        flexShrink: 0,
       }}>
-        Sua Posição:{' '}
-        <strong style={{
-          fontWeight: 700,
-          background: 'rgba(15, 98, 254, 0.3)',
-          padding: '2px 6px',
-          borderRadius: '3px',
-          color: '#FFFFFF',
-          border: '1px solid rgba(15, 98, 254, 0.8)',
+        {/* Live indicator */}
+        <div style={{
+          width: 6,
+          height: 6,
+          borderRadius: '50%',
+          background: '#52ea94',
+          flexShrink: 0,
+        }} />
+        <span style={{
+          fontFamily: 'Tahoma, sans-serif',
+          fontWeight: 400,
+          fontSize: 11,
+          color: 'var(--typography-suave-2)',
+          whiteSpace: 'nowrap',
         }}>
-          {userRank}
+          Sua Posição:
+        </span>
+        <strong style={{
+          fontFamily: 'Tahoma, sans-serif',
+          fontWeight: 700,
+          fontSize: 11,
+          color: '#FFFFFF',
+          whiteSpace: 'nowrap',
+        }}>
+          {userRank} de {totalParticipants}
         </strong>
-      </span>
+      </div>
 
-      {/* Right: Total Participants */}
-      <span style={{
-        fontFamily: 'Tahoma, sans-serif',
-        fontWeight: 400,
-        fontSize: 11,
-        color: 'var(--typography-suave-1)',
-        whiteSpace: 'nowrap',
+      {/* Right: Time Remaining Pill */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 2,
+        background: '#202020',
+        padding: '4px 8px',
+        borderRadius: 4,
+        flexShrink: 0,
       }}>
-        Total de Participantes: <strong style={{ fontWeight: 700 }}>{totalParticipants}</strong>
-      </span>
+        {/* Clock icon */}
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+          <path d="M5.5 0C8.53757 0 11 2.46243 11 5.5C11 8.53757 8.53757 11 5.5 11C2.46243 11 0 8.53757 0 5.5C0 2.46243 2.46243 0 5.5 0ZM5.5 1C3.01472 1 1 3.01472 1 5.5C1 7.98528 3.01472 10 5.5 10C7.98528 10 10 7.98528 10 5.5C10 3.01472 7.98528 1 5.5 1ZM6 5H8V6H5V2H6V5Z" fill="#DFDFDF"/>
+        </svg>
+        <span style={{
+          fontFamily: 'Tahoma, sans-serif',
+          fontWeight: 400,
+          fontSize: 11,
+          color: 'var(--typography-suave-2)',
+          whiteSpace: 'nowrap',
+        }}>
+          Encerra em:
+        </span>
+        <span style={{
+          fontFamily: 'Tahoma, sans-serif',
+          fontWeight: 400,
+          fontSize: 11,
+          color: '#FFFFFF',
+          whiteSpace: 'nowrap',
+        }}>
+          {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m
+        </span>
+      </div>
     </div>
   );
 }
@@ -584,7 +666,7 @@ export default function App() {
         )}
       </div>
 
-      <Footer userRank={userRank} totalParticipants={totalParticipants} />
+      <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />
     </div>
   );
 }

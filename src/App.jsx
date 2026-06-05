@@ -3,16 +3,8 @@ import './App.css'
 
 const style = document.createElement('style');
 style.textContent = `
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(82, 234, 148, 0.7);
-    }
-    50% {
-      box-shadow: 0 0 0 6px rgba(82, 234, 148, 0);
-    }
-  }
   .live-indicator {
-    animation: pulse-glow 2s infinite;
+    box-shadow: 0 0 8px rgba(82, 234, 148, 0.6);
   }
 `;
 document.head.appendChild(style);

@@ -628,8 +628,8 @@ export default function App() {
       boxShadow: '0 0 40px rgba(0,0,0,0.5)',
     }}>
       <Header />
-      <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />
       <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} />
+      <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />
 
       {/* Table area */}
       <div

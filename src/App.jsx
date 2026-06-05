@@ -1,5 +1,21 @@
 import React from 'react'
 import './App.css'
+
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(82, 234, 148, 0.7);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(82, 234, 148, 0);
+    }
+  }
+  .live-indicator {
+    animation: pulse-glow 2s infinite;
+  }
+`;
+document.head.appendChild(style);
 import {
   IcCampeonato,
   IcChevronPixelCima,
@@ -363,35 +379,39 @@ function InfoSubheader({ userRank, totalParticipants }) {
   });
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setTimeRemaining((prev) => {
         let { days, hours, minutes, seconds } = prev;
+
+        if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+          return prev;
+        }
 
         seconds -= 1;
         if (seconds < 0) {
           seconds = 59;
           minutes -= 1;
-          if (minutes < 0) {
-            minutes = 59;
-            hours -= 1;
-            if (hours < 0) {
-              hours = 23;
-              days -= 1;
-              if (days < 0) {
-                days = 0;
-                hours = 0;
-                minutes = 0;
-                seconds = 0;
-              }
-            }
-          }
+        }
+        if (minutes < 0) {
+          minutes = 59;
+          hours -= 1;
+        }
+        if (hours < 0) {
+          hours = 23;
+          days -= 1;
+        }
+        if (days < 0) {
+          days = 0;
+          hours = 0;
+          minutes = 0;
+          seconds = 0;
         }
 
         return { days, hours, minutes, seconds };
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -419,7 +439,7 @@ function InfoSubheader({ userRank, totalParticipants }) {
         flexShrink: 0,
       }}>
         {/* Live indicator */}
-        <div style={{
+        <div className="live-indicator" style={{
           width: 6,
           height: 6,
           borderRadius: '50%',

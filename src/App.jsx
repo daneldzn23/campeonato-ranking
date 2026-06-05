@@ -348,9 +348,9 @@ function TableHeader() {
         <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
       </div>
 
-      {/* Resultado column */}
+      {/* PnL column */}
       <div style={{ display: 'flex', flex: '1 0 0', height: 15, alignItems: 'center', justifyContent: 'center', padding: '0 8px', minWidth: 90, position: 'relative' }}>
-        <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>Resultado</span>
+        <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>PnL</span>
         <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
       </div>
     </div>

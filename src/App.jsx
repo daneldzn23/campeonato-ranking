@@ -730,7 +730,7 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
 export default function App() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(true);
-  const [version, setVersion] = React.useState('v4');
+  const [version, setVersion] = React.useState('v1');
   const [subheaderPosition, setSubheaderPosition] = React.useState('bottom');
   const scrollContainerRef = React.useRef(null);
   const tableAreaRef = React.useRef(null);
@@ -828,6 +828,9 @@ export default function App() {
       <div style={{ display: 'flex', gap: 8, paddingTop: 12, flexWrap: 'wrap' }}>
         <button onClick={() => setVersion('v1')} style={{ padding: '6px 12px', background: version === 'v1' ? '#52ea94' : '#333', color: version === 'v1' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v1 (Drawer)</button>
         <button onClick={() => setVersion('v1.1')} style={{ padding: '6px 12px', background: version === 'v1.1' ? '#52ea94' : '#333', color: version === 'v1.1' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v1.1 (Single)</button>
+        <button onClick={() => setVersion('v2')} style={{ padding: '6px 12px', background: version === 'v2' ? '#52ea94' : '#333', color: version === 'v2' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12, visibility: 'hidden', position: 'absolute', pointerEvents: 'auto' }}>v2 (Sticky)</button>
+        <button onClick={() => setVersion('v3')} style={{ padding: '6px 12px', background: version === 'v3' ? '#52ea94' : '#333', color: version === 'v3' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12, visibility: 'hidden', position: 'absolute', pointerEvents: 'auto' }}>v3 (Single Sticky)</button>
+        <button onClick={() => setVersion('v4')} style={{ padding: '6px 12px', background: version === 'v4' ? '#52ea94' : '#333', color: version === 'v4' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12, visibility: 'hidden', position: 'absolute', pointerEvents: 'auto' }}>v4 (Enhanced)</button>
       </div>
 
       {/* Main Window */}

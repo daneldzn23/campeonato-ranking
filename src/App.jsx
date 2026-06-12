@@ -131,7 +131,8 @@ function RankingRow({ participant, version }) {
   const { rank, name, pnl, isUser, account } = participant;
   const isTop3 = rank <= 3;
   const displayName = version === 'v3' && rank === 9 ? 'Aline Ribeiro' : name;
-  const displayIsUser = version === 'v3' && rank === 9 ? false : isUser;
+  let displayIsUser = version === 'v3' && rank === 9 ? false : isUser;
+  if (version === 'v1.1' && rank === 20) displayIsUser = false;
   const isBold = isTop3 || displayIsUser;
 
   return (
@@ -174,17 +175,6 @@ function RankingRow({ participant, version }) {
               }}>
                 {displayName}
               </span>
-              {account && !(version === 'v3' && rank === 9) && (
-                <span style={{
-                  fontFamily: "'Tahoma', sans-serif",
-                  fontWeight: 400,
-                  fontSize: 11,
-                  color: 'var(--typography-suave-1)',
-                  whiteSpace: 'nowrap',
-                }}>
-                  {account}
-                </span>
-              )}
             </div>
           </div>
         </div>
@@ -341,7 +331,7 @@ function Subheader({ searchTerm, onSearchChange, isDrawerOpen, onDrawerToggle, v
       <div style={{ flex: '1 0 0' }} />
 
       {/* Drawer toggle button - far right */}
-      {version === 'v1' && (
+      {(version === 'v1' || version === 'v1.1') && (
         <button
           onClick={onDrawerToggle}
           style={{
@@ -590,6 +580,63 @@ function Header() {
   );
 }
 
+function MinhasPosicoesDrawerV4({ position, isOpen, onToggle }) {
+  return (
+    <div style={{
+      background: 'linear-gradient(90deg, rgb(51, 51, 51) 0%, rgb(51, 51, 51) 100%)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+      width: '100%',
+      flexShrink: 0,
+      padding: '4px',
+      gap: '4px',
+    }}>
+      <button
+        onClick={onToggle}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          padding: '4px 4px 4px 4px',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: '100%',
+          fontSize: 12,
+          fontWeight: 700,
+          color: 'var(--typography-base)',
+          fontFamily: "'Segoe UI', sans-serif",
+          gap: '8px',
+        }}
+      >
+        <span style={{ flex: '1 0 0', textAlign: 'left' }}>Minhas Posições</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}>
+          <IcChevronLineBaixo style={{ width: 16, height: 16 }} />
+        </div>
+      </button>
+      {isOpen && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          padding: '4px',
+          width: '100%',
+          minHeight: '32px',
+          background: 'var(--windown-bg-header-select)',
+          borderRadius: '4px',
+          fontSize: 11,
+          fontFamily: "'Tahoma', sans-serif",
+          gap: '8px',
+        }}>
+          <span style={{ fontWeight: 600, color: '#c2c2c2', fontSize: 11, minWidth: 20 }}>{position.position}</span>
+          <span style={{ fontWeight: 600, color: 'var(--typography-base)', fontSize: 11, flex: '0 1 auto' }}>{position.name}</span>
+          <span style={{ fontWeight: 700, color: position.pnl.includes('-') ? 'var(--typography-negativo)' : 'var(--typography-positivo)', fontSize: 12, marginLeft: 'auto' }}>{position.pnl}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
   return (
     <div style={{
@@ -607,7 +654,7 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
         style={{
           background: 'transparent',
           border: 'none',
-          padding: '4px',
+          padding: '4px 4px 4px 4px',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
@@ -617,10 +664,11 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
           fontWeight: 700,
           color: 'var(--typography-base)',
           fontFamily: "'Segoe UI', sans-serif",
+          gap: '8px',
         }}
       >
-        <span>Minhas Posições</span>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+        <span style={{ flex: '1 0 0', textAlign: 'left' }}>Minhas Posições</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', flexShrink: 0 }}>
           <IcChevronLineBaixo style={{ width: 16, height: 16 }} />
         </div>
       </button>
@@ -662,16 +710,6 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
               </div>
               <div style={{
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '22px',
-                width: '80px',
-                flexShrink: 0,
-              }}>
-                <span style={{ fontWeight: 400, color: '#c2c2c2', fontSize: 11, fontFamily: "'Tahoma', sans-serif", overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{pos.account}</span>
-              </div>
-              <div style={{
-                display: 'flex',
                 flex: '1 0 0',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
@@ -692,7 +730,7 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
 export default function App() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(true);
-  const [version, setVersion] = React.useState('v3');
+  const [version, setVersion] = React.useState('v4');
   const [subheaderPosition, setSubheaderPosition] = React.useState('bottom');
   const scrollContainerRef = React.useRef(null);
   const tableAreaRef = React.useRef(null);
@@ -787,10 +825,9 @@ export default function App() {
   return (
     <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', flexDirection: 'column' }}>
       {/* Version Selector */}
-      <div style={{ display: 'flex', gap: 8, paddingTop: 12 }}>
+      <div style={{ display: 'flex', gap: 8, paddingTop: 12, flexWrap: 'wrap' }}>
         <button onClick={() => setVersion('v1')} style={{ padding: '6px 12px', background: version === 'v1' ? '#52ea94' : '#333', color: version === 'v1' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v1 (Drawer)</button>
-        <button onClick={() => setVersion('v2')} style={{ padding: '6px 12px', background: version === 'v2' ? '#52ea94' : '#333', color: version === 'v2' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v2 (Sticky)</button>
-        <button onClick={() => setVersion('v3')} style={{ padding: '6px 12px', background: version === 'v3' ? '#52ea94' : '#333', color: version === 'v3' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v3 (Single)</button>
+        <button onClick={() => setVersion('v1.1')} style={{ padding: '6px 12px', background: version === 'v1.1' ? '#52ea94' : '#333', color: version === 'v1.1' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v1.1 (Single)</button>
       </div>
 
       {/* Main Window */}
@@ -808,7 +845,7 @@ export default function App() {
         boxShadow: '0 0 40px rgba(0,0,0,0.5)',
       }}>
         <Header />
-        <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} isDrawerOpen={version === 'v1' ? isDrawerOpen : false} onDrawerToggle={version === 'v1' ? () => setIsDrawerOpen(!isDrawerOpen) : () => {}} version={version} />
+        <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} isDrawerOpen={version === 'v1' || version === 'v1.1' ? isDrawerOpen : false} onDrawerToggle={version === 'v1' || version === 'v1.1' ? () => setIsDrawerOpen(!isDrawerOpen) : () => {}} version={version} />
         {subheaderPosition === 'top' && <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />}
 
       {/* Table area */}
@@ -883,15 +920,6 @@ export default function App() {
                           whiteSpace: 'nowrap',
                         }}>
                           {pos.name}
-                        </span>
-                        <span style={{
-                          fontFamily: "'Tahoma', sans-serif",
-                          fontWeight: 400,
-                          fontSize: 11,
-                          color: 'var(--typography-suave-1)',
-                          whiteSpace: 'nowrap',
-                        }}>
-                          {pos.account}
                         </span>
                       </div>
                     </div>
@@ -975,15 +1003,6 @@ export default function App() {
                           }}>
                             {pos.name}
                           </span>
-                          <span style={{
-                            fontFamily: "'Tahoma', sans-serif",
-                            fontWeight: 400,
-                            fontSize: 11,
-                            color: 'var(--typography-suave-1)',
-                            whiteSpace: 'nowrap',
-                          }}>
-                            {pos.account}
-                          </span>
                         </div>
                       </div>
                     </div>
@@ -1032,12 +1051,17 @@ export default function App() {
             }} />
         )}
       </div>
-      {version === 'v1' && (
-        <MinhasPosicoesDrawer isOpen={isDrawerOpen} onToggle={() => setIsDrawerOpen(!isDrawerOpen)} userPositions={[
+      {(version === 'v1' || version === 'v1.1') && (
+        <MinhasPosicoesDrawer isOpen={isDrawerOpen} onToggle={() => setIsDrawerOpen(!isDrawerOpen)} userPositions={version === 'v1.1' ? [
+          { position: '9', name: 'Gustavo Ribeiro', account: '987654321', pnl: 'R$ 82.492,75' },
+        ] : [
           { position: '9', name: 'Gustavo Ribeiro', account: '987654321', pnl: 'R$ 82.492,75' },
           { position: '52', name: 'Gustavo Ribeiro', account: '000265899', pnl: 'R$ 6.503,86' },
           { position: '132', name: 'Gustavo Ribeiro', account: '112125417', pnl: 'R$ -1.381,64' },
         ]} />
+      )}
+      {version === 'v4' && (
+        <MinhasPosicoesDrawerV4 isOpen={isDrawerOpen} onToggle={() => setIsDrawerOpen(!isDrawerOpen)} position={{ position: '9', name: 'Gustavo Ribeiro', account: '987654321', pnl: 'R$ 82.492,75' }} />
       )}
       </div>
     </div>

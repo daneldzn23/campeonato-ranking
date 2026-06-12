@@ -35,7 +35,7 @@ const PARTICIPANTS = [
   { rank: 6,  name: "Larissa Nunes",    pnl: "R$ 90.710,30",  isUser: false },
   { rank: 7,  name: "Felipe Castro",    pnl: "R$ 87.355,80",  isUser: false },
   { rank: 8,  name: "Juliana Freitas",  pnl: "R$ 85.104,20",  isUser: false },
-  { rank: 9,  name: "Gustavo Ribeiro",  pnl: "R$ 82.492,75",  isUser: true },
+  { rank: 9,  name: "Gustavo Ribeiro",  pnl: "R$ 82.492,75",  isUser: true, account: '987654321' },
   { rank: 10, name: "Patricia Gomes",   pnl: "R$ 79.820,60",  isUser: false },
   { rank: 11, name: "Daniel Azevedo",   pnl: "R$ 63.028,40",  isUser: false },
   { rank: 12, name: "Beatriz Cardoso",  pnl: "R$ 61.410,00",  isUser: false },
@@ -46,7 +46,7 @@ const PARTICIPANTS = [
   { rank: 17, name: "Andre Farias",     pnl: "R$ 55.449,45",  isUser: false },
   { rank: 18, name: "Isabela Teixeira", pnl: "R$ 53.831,05",  isUser: false },
   { rank: 19, name: "Vitor Campos",     pnl: "R$ 52.212,65",  isUser: false },
-  { rank: 20, name: "Aline Medeiros",   pnl: "R$ 50.946,60",  isUser: false },
+  { rank: 20, name: "Gustavo Ribeiro",   pnl: "R$ 50.946,60",  isUser: true, account: '000265899' },
   { rank: 21, name: "Eduardo Cunha",    pnl: "R$ 50.754,95",  isUser: false },
   { rank: 22, name: "Natalia Vieira",   pnl: "R$ 49.136,55",  isUser: false },
   { rank: 23, name: "Gabriel Santos",   pnl: "R$ 48.520,30",  isUser: false },
@@ -58,7 +58,7 @@ const PARTICIPANTS = [
   { rank: 29, name: "Lucas Gomes",      pnl: "R$ 42.790,20",  isUser: false },
   { rank: 30, name: "Mariana Rocha",    pnl: "R$ 41.574,65",  isUser: false },
   { rank: 31, name: "Victor Alves",     pnl: "R$ 40.759,30",  isUser: false },
-  { rank: 32, name: "Carolina Martins", pnl: "R$ 39.543,75",  isUser: false },
+  { rank: 30, name: "Mariana Rocha",    pnl: "R$ 41.574,65",  isUser: false },
 ];
 
 
@@ -127,10 +127,12 @@ function rowBackground(rank) {
   return rank % 2 === 0 ? 'var(--table-default-bg-line-even)' : 'var(--table-default-bg-line-odd)';
 }
 
-function RankingRow({ participant }) {
-  const { rank, name, pnl, isUser } = participant;
+function RankingRow({ participant, version }) {
+  const { rank, name, pnl, isUser, account } = participant;
   const isTop3 = rank <= 3;
-  const isBold = isTop3 || isUser;
+  const displayName = version === 'v3' && rank === 9 ? 'Aline Ribeiro' : name;
+  const displayIsUser = version === 'v3' && rank === 9 ? false : isUser;
+  const isBold = isTop3 || displayIsUser;
 
   return (
     <div style={{
@@ -138,10 +140,10 @@ function RankingRow({ participant }) {
       alignItems: 'center',
       width: '100%',
       flexShrink: 0,
-      background: isUser && !isTop3 ? '#3a3a3a' : rowBackground(rank),
+      background: displayIsUser && !isTop3 ? '#3a3a3a' : rowBackground(rank),
       minHeight: 32,
-      borderLeft: isUser && !isTop3 ? '3px solid rgba(15, 98, 254, 0.8)' : 'none',
-      paddingLeft: isUser && !isTop3 ? '5px' : '8px',
+      borderLeft: displayIsUser && !isTop3 ? '3px solid rgba(15, 98, 254, 0.8)' : 'none',
+      paddingLeft: displayIsUser && !isTop3 ? '5px' : '8px',
     }}>
       {/* Rank cell */}
       <div style={{
@@ -159,7 +161,7 @@ function RankingRow({ participant }) {
       <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', minWidth: 0 }}>
         <div style={{ display: 'flex', flex: '1 0 0', gap: 8, height: '100%', alignItems: 'center', minWidth: 0, padding: '0 4px' }}>
           <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'column', gap: 6, height: 32, justifyContent: 'center', minWidth: 0, alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center', overflow: 'hidden', width: '100%' }}>
+            <div style={{ display: 'flex', gap: 8, alignItems: 'center', overflow: 'hidden', width: '100%' }}>
               <span style={{
                 fontFamily: "'Segoe UI', sans-serif",
                 fontWeight: isBold ? 700 : 400,
@@ -170,8 +172,19 @@ function RankingRow({ participant }) {
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
               }}>
-                {name}
+                {displayName}
               </span>
+              {account && !(version === 'v3' && rank === 9) && (
+                <span style={{
+                  fontFamily: "'Tahoma', sans-serif",
+                  fontWeight: 400,
+                  fontSize: 11,
+                  color: 'var(--typography-suave-1)',
+                  whiteSpace: 'nowrap',
+                }}>
+                  {account}
+                </span>
+              )}
             </div>
           </div>
         </div>
@@ -197,7 +210,7 @@ function RankingRow({ participant }) {
   );
 }
 
-function Subheader({ searchTerm, onSearchChange, isDrawerOpen, onDrawerToggle }) {
+function Subheader({ searchTerm, onSearchChange, isDrawerOpen, onDrawerToggle, version }) {
   const [isSearching, setIsSearching] = React.useState(false);
   const searchInputRef = React.useRef(null);
 
@@ -328,24 +341,26 @@ function Subheader({ searchTerm, onSearchChange, isDrawerOpen, onDrawerToggle })
       <div style={{ flex: '1 0 0' }} />
 
       {/* Drawer toggle button - far right */}
-      <button
-        onClick={onDrawerToggle}
-        style={{
-          background: isDrawerOpen ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-          border: 'none',
-          padding: isDrawerOpen ? 3 : 0,
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 22,
-          height: 22,
-          flexShrink: 0,
-          borderRadius: 4,
-        }}
-      >
-        <img src={IcAbrirAbaixo} style={{ width: 16, height: 16 }} alt="drawer toggle" />
-      </button>
+      {version === 'v1' && (
+        <button
+          onClick={onDrawerToggle}
+          style={{
+            background: isDrawerOpen ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+            border: 'none',
+            padding: isDrawerOpen ? 3 : 0,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 22,
+            height: 22,
+            flexShrink: 0,
+            borderRadius: 4,
+          }}
+        >
+          <img src={IcAbrirAbaixo} style={{ width: 16, height: 16 }} alt="drawer toggle" />
+        </button>
+      )}
     </div>
   );
 }
@@ -359,23 +374,26 @@ function TableHeader() {
       alignItems: 'center',
       width: '100%',
       flexShrink: 0,
+      position: 'sticky',
+      top: 0,
+      zIndex: 9,
     }}>
       {/* # column */}
       <div style={{ display: 'flex', height: 16, alignItems: 'center', justifyContent: 'center', padding: '0 8px', flexShrink: 0, position: 'relative', width: 32 }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>#</span>
-        <div style={{ position: 'absolute', right: 0, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
+        <div style={{ position: 'absolute', right: 0, top: 2.5, width: 1, height: 10, background: '#474747', opacity: 0.5 }} />
       </div>
 
       {/* Participante column */}
       <div style={{ display: 'flex', flex: '1 0 0', height: 16, alignItems: 'center', justifyContent: 'center', padding: '0 8px', minWidth: 0, position: 'relative' }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>Participante</span>
-        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
+        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, background: '#474747', opacity: 0.5 }} />
       </div>
 
       {/* PnL column */}
       <div style={{ display: 'flex', flex: '1 0 0', height: 15, alignItems: 'center', justifyContent: 'center', padding: '0 8px', minWidth: 90, position: 'relative' }}>
         <span style={{ fontFamily: 'Tahoma, sans-serif', fontWeight: 400, fontSize: 11, color: 'var(--typography-suave-2)', textAlign: 'center', whiteSpace: 'nowrap' }}>PnL</span>
-        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, opacity: 0.5 }} />
+        <div style={{ position: 'absolute', right: -0.5, top: 2.5, width: 1, height: 10, background: '#474747', opacity: 0.5 }} />
       </div>
     </div>
   );
@@ -674,7 +692,7 @@ function MinhasPosicoesDrawer({ userPositions, isOpen, onToggle }) {
 export default function App() {
   const [searchTerm, setSearchTerm] = React.useState('');
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(true);
-  const [version, setVersion] = React.useState('v2');
+  const [version, setVersion] = React.useState('v3');
   const [subheaderPosition, setSubheaderPosition] = React.useState('bottom');
   const scrollContainerRef = React.useRef(null);
   const tableAreaRef = React.useRef(null);
@@ -686,10 +704,11 @@ export default function App() {
   const dragStartY = React.useRef(0);
   const dragStartScroll = React.useRef(0);
   const [stickyPositions, setStickyPositions] = React.useState([
-    { position: '9', name: 'Gustavo Ribeiro', account: '987654321', pnl: 'R$ 82.492,75' },
-    { position: '52', name: 'Gustavo Ribeiro', account: '000265899', pnl: 'R$ 6.503,86' },
-    { position: '132', name: 'Gustavo Ribeiro', account: '112125417', pnl: 'R$ -1.381,64' },
+    { position: 9, name: 'Gustavo Ribeiro', account: '987654321', pnl: 'R$ 82.492,75', pnlV3: 'R$ 50.946,60' },
+    { position: 20, name: 'Gustavo Ribeiro', account: '000265899', pnl: 'R$ 6.503,86', pnlV3: 'R$ 50.946,60' },
+    { position: 132, name: 'Gustavo Ribeiro', account: '112125417', pnl: 'R$ -1.381,64' },
   ]);
+  const [visiblePositions, setVisiblePositions] = React.useState({});
 
   const handleScroll = React.useCallback((e) => {
     if (!scrollContainerRef.current) return;
@@ -700,7 +719,21 @@ export default function App() {
 
     setScrollThumbHeight(thumbHeight);
     setScrollThumbTop(thumbTop);
-  }, []);
+
+    // Track which positions have been scrolled past (above viewport)
+    const newVisiblePositions = {};
+    stickyPositions.forEach((pos) => {
+      const rowIndex = PARTICIPANTS.findIndex(p => p.rank === pos.position);
+      if (rowIndex !== -1) {
+        const rowTop = rowIndex * 32;
+        const rowBottom = rowTop + 32;
+        const isInViewport = rowBottom > scrollTop && rowTop < scrollTop + clientHeight;
+        const isAboveViewport = rowBottom <= scrollTop;
+        newVisiblePositions[pos.position] = { inViewport: isInViewport, aboveViewport: isAboveViewport };
+      }
+    });
+    setVisiblePositions(newVisiblePositions);
+  }, [stickyPositions]);
 
   const handleThumbMouseDown = React.useCallback((e) => {
     setIsDragging(true);
@@ -757,6 +790,7 @@ export default function App() {
       <div style={{ display: 'flex', gap: 8, paddingTop: 12 }}>
         <button onClick={() => setVersion('v1')} style={{ padding: '6px 12px', background: version === 'v1' ? '#52ea94' : '#333', color: version === 'v1' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v1 (Drawer)</button>
         <button onClick={() => setVersion('v2')} style={{ padding: '6px 12px', background: version === 'v2' ? '#52ea94' : '#333', color: version === 'v2' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v2 (Sticky)</button>
+        <button onClick={() => setVersion('v3')} style={{ padding: '6px 12px', background: version === 'v3' ? '#52ea94' : '#333', color: version === 'v3' ? '#000' : '#fff', border: 'none', borderRadius: 4, cursor: 'pointer', fontWeight: 600, fontSize: 12 }}>v3 (Single)</button>
       </div>
 
       {/* Main Window */}
@@ -774,7 +808,7 @@ export default function App() {
         boxShadow: '0 0 40px rgba(0,0,0,0.5)',
       }}>
         <Header />
-        <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} isDrawerOpen={version === 'v1' ? isDrawerOpen : false} onDrawerToggle={version === 'v1' ? () => setIsDrawerOpen(!isDrawerOpen) : () => {}} />
+        <Subheader searchTerm={searchTerm} onSearchChange={setSearchTerm} isDrawerOpen={version === 'v1' ? isDrawerOpen : false} onDrawerToggle={version === 'v1' ? () => setIsDrawerOpen(!isDrawerOpen) : () => {}} version={version} />
         {subheaderPosition === 'top' && <InfoSubheader userRank={userRank} totalParticipants={totalParticipants} />}
 
       {/* Table area */}
@@ -786,32 +820,195 @@ export default function App() {
         <div ref={scrollContainerRef} data-scrollable style={{ background: 'var(--windown-bg-body-deep)', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', overflow: 'auto', width: '100%', flex: 1, minHeight: 0 }}>
           <TableHeader />
           {filteredParticipants.map((p) => (
-            <RankingRow key={p.rank} participant={p} />
+            <RankingRow key={p.rank} participant={p} version={version} />
           ))}
         </div>
-        {version === 'v2' && (
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', borderTop: '1px solid #474747', position: 'relative', zIndex: 10 }}>
-            {stickyPositions.map((pos, idx) => (
-              <div key={idx} style={{
-                display: 'flex',
-                alignItems: 'center',
-                padding: '8px',
-                width: '100%',
-                minHeight: '32px',
-                background: 'var(--windown-bg-header-select)',
-                borderBottom: idx < stickyPositions.length - 1 ? '1px solid #474747' : 'none',
-                fontSize: 11,
-                fontFamily: "'Tahoma', sans-serif",
-              }}>
-                <span style={{ fontWeight: 600, color: '#c2c2c2', fontSize: 11, minWidth: 20 }}>{pos.position}</span>
-                <span style={{ fontWeight: 600, color: 'var(--typography-base)', fontSize: 11, marginLeft: 12, flex: '0 1 auto' }}>{pos.name}</span>
-                <span style={{ fontWeight: 400, color: '#c2c2c2', fontSize: 11, marginLeft: 12, minWidth: 80, fontFamily: "'Tahoma', sans-serif" }}>{pos.account}</span>
-                <span style={{ fontWeight: 700, color: pos.pnl.includes('-') ? 'var(--typography-negativo)' : 'var(--typography-positivo)', fontSize: 12, marginLeft: 'auto' }}>{pos.pnl}</span>
-              </div>
-            ))}
-          </div>
+        {(version === 'v2' || version === 'v3') && (
+          <>
+            <div style={{ position: 'absolute', top: '16px', left: 0, right: 0, display: 'flex', flexDirection: 'column', zIndex: 10 }}>
+              {stickyPositions.filter(pos => version === 'v2' || pos.position === 20).map((pos, idx) => {
+                const posState = visiblePositions[pos.position];
+                if (!posState?.aboveViewport) return null;
+              return (
+                <div key={idx} style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  width: '100%',
+                  flexShrink: 0,
+                  background: '#3a3a3a',
+                  minHeight: 32,
+                  borderLeft: '3px solid rgba(15, 98, 254, 0.8)',
+                  paddingLeft: '5px',
+                }}>
+                  {/* Rank cell */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 6,
+                    padding: '0 8px',
+                    flexShrink: 0,
+                  }}>
+                    <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden', flexShrink: 0 }}>
+                      <p style={{
+                        position: 'absolute',
+                        left: 8,
+                        top: 4,
+                        transform: 'translateX(-50%)',
+                        width: 16,
+                        fontFamily: "'Segoe UI', sans-serif",
+                        fontWeight: 600,
+                        fontSize: 11,
+                        lineHeight: '12px',
+                        letterSpacing: -0.121,
+                        color: 'var(--typography-suave-1)',
+                        textAlign: 'center',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {pos.position}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Name cell */}
+                  <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', minWidth: 0 }}>
+                    <div style={{ display: 'flex', flex: '1 0 0', gap: 8, height: '100%', alignItems: 'center', minWidth: 0, padding: '0 4px' }}>
+                      <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', gap: 8, height: 32, justifyContent: 'flex-start', minWidth: 0, alignItems: 'center' }}>
+                        <span style={{
+                          fontFamily: "'Segoe UI', sans-serif",
+                          fontWeight: 700,
+                          fontSize: 11.281,
+                          lineHeight: '11.281px',
+                          color: 'var(--typography-base)',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {pos.name}
+                        </span>
+                        <span style={{
+                          fontFamily: "'Tahoma', sans-serif",
+                          fontWeight: 400,
+                          fontSize: 11,
+                          color: 'var(--typography-suave-1)',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {pos.account}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PnL cell */}
+                  <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', minWidth: 90 }}>
+                    <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'column', height: '100%', alignItems: 'flex-end', justifyContent: 'center', minWidth: 90, padding: '0 4px' }}>
+                      <span style={{
+                        fontFamily: "'Segoe UI', sans-serif",
+                        fontWeight: 700,
+                        fontSize: 12,
+                        lineHeight: '12px',
+                        letterSpacing: -0.132,
+                        color: (version === 'v3' && pos.pnlV3 ? pos.pnlV3 : pos.pnl).includes('-') ? 'var(--typography-negativo)' : 'var(--typography-positivo)',
+                      }}>
+                        {version === 'v3' && pos.pnlV3 ? pos.pnlV3 : pos.pnl}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            </div>
+            <div style={{ width: '100%', display: 'flex', flexDirection: 'column', borderTop: '1px solid #474747', position: 'relative', zIndex: 5, pointerEvents: 'auto' }}>
+              {stickyPositions.filter(pos => version === 'v2' || pos.position === 20).map((pos, idx) => {
+                const posState = visiblePositions[pos.position];
+                if (posState?.aboveViewport || posState?.inViewport) return null;
+                return (
+                  <div key={idx} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    flexShrink: 0,
+                    background: '#3a3a3a',
+                    minHeight: 32,
+                    borderLeft: '3px solid rgba(15, 98, 254, 0.8)',
+                    paddingLeft: '5px',
+                  }}>
+                    {/* Rank cell */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 6,
+                      padding: '0 8px',
+                      flexShrink: 0,
+                    }}>
+                      <div style={{ position: 'relative', width: 16, height: 16, overflow: 'hidden', flexShrink: 0 }}>
+                        <p style={{
+                          position: 'absolute',
+                          left: 8,
+                          top: 4,
+                          transform: 'translateX(-50%)',
+                          width: 16,
+                          fontFamily: "'Segoe UI', sans-serif",
+                          fontWeight: 600,
+                          fontSize: 11,
+                          lineHeight: '12px',
+                          letterSpacing: -0.121,
+                          color: 'var(--typography-suave-1)',
+                          textAlign: 'center',
+                          whiteSpace: 'nowrap',
+                        }}>
+                          {pos.position}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Name cell */}
+                    <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', minWidth: 0 }}>
+                      <div style={{ display: 'flex', flex: '1 0 0', gap: 8, height: '100%', alignItems: 'center', minWidth: 0, padding: '0 4px' }}>
+                        <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', gap: 8, height: 32, justifyContent: 'flex-start', minWidth: 0, alignItems: 'center' }}>
+                          <span style={{
+                            fontFamily: "'Segoe UI', sans-serif",
+                            fontWeight: 700,
+                            fontSize: 11.281,
+                            lineHeight: '11.281px',
+                            color: 'var(--typography-base)',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {pos.name}
+                          </span>
+                          <span style={{
+                            fontFamily: "'Tahoma', sans-serif",
+                            fontWeight: 400,
+                            fontSize: 11,
+                            color: 'var(--typography-suave-1)',
+                            whiteSpace: 'nowrap',
+                          }}>
+                            {pos.account}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* PnL cell */}
+                    <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'row', alignItems: 'center', alignSelf: 'stretch', minWidth: 90 }}>
+                      <div style={{ display: 'flex', flex: '1 0 0', flexDirection: 'column', height: '100%', alignItems: 'flex-end', justifyContent: 'center', minWidth: 90, padding: '0 4px' }}>
+                        <span style={{
+                          fontFamily: "'Segoe UI', sans-serif",
+                          fontWeight: 700,
+                          fontSize: 12,
+                          lineHeight: '12px',
+                          letterSpacing: -0.132,
+                          color: (version === 'v3' && pos.pnlV3 ? pos.pnlV3 : pos.pnl).includes('-') ? 'var(--typography-negativo)' : 'var(--typography-positivo)',
+                        }}>
+                          {version === 'v3' && pos.pnlV3 ? pos.pnlV3 : pos.pnl}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
-      </div>
 
         {/* Custom scrollbar — only visible on hover */}
         {scrollThumbHeight < (scrollContainerRef.current?.clientHeight || 0) && (
